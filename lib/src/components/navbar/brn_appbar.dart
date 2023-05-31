@@ -168,8 +168,7 @@ class BrnAppBar extends PreferredSize {
       this.primary = true,
       this.textTheme,
       this.titleSpacing})
-      : assert(
-            actions == null || actions is Widget || (actions is List<Widget>)),
+      : assert(actions == null || actions is Widget || (actions is List<Widget>)),
         assert(title == null || title is String || title is Widget),
         super(key: key, child: Container(), preferredSize: Size(0, 0));
 
@@ -216,12 +215,8 @@ class BrnAppBar extends PreferredSize {
   @override
   Size get preferredSize {
     BrnAppBarConfig _defaultConfig = themeData ?? BrnAppBarConfig();
-    _defaultConfig = BrnThemeConfigurator.instance
-        .getConfig(configId: _defaultConfig.configId)
-        .appBarConfig
-        .merge(_defaultConfig);
-    return Size.fromHeight(
-        _defaultConfig.appBarHeight + (bottom?.preferredSize.height ?? 0.0));
+    _defaultConfig = BrnThemeConfigurator.instance.getConfig(configId: _defaultConfig.configId).appBarConfig.merge(_defaultConfig);
+    return Size.fromHeight(_defaultConfig.appBarHeight + (bottom?.preferredSize.height ?? 0.0));
   }
 
   @override
@@ -233,13 +228,9 @@ class BrnAppBar extends PreferredSize {
     } else if (brightness == Brightness.dark) {
       _defaultConfig = _defaultConfig.merge(BrnAppBarConfig.dark());
     }
-    _defaultConfig = _defaultConfig
-        .merge(BrnAppBarConfig(backgroundColor: this.backgroundColor, showDefaultBottom: this.showDefaultBottom));
+    _defaultConfig = _defaultConfig.merge(BrnAppBarConfig(backgroundColor: this.backgroundColor, showDefaultBottom: this.showDefaultBottom));
 
-    _defaultConfig = BrnThemeConfigurator.instance
-        .getConfig(configId: _defaultConfig.configId)
-        .appBarConfig
-        .merge(_defaultConfig);
+    _defaultConfig = BrnThemeConfigurator.instance.getConfig(configId: _defaultConfig.configId).appBarConfig.merge(_defaultConfig);
 
     useWidgetsBinding().addPostFrameCallback((_) {
       SystemChrome.setSystemUIOverlayStyle(_defaultConfig.systemUiOverlayStyle);
@@ -265,19 +256,14 @@ class BrnAppBar extends PreferredSize {
     } else if (brightness == Brightness.dark) {
       _defaultConfig = _defaultConfig.merge(BrnAppBarConfig.dark());
     }
-    _defaultConfig =
-        _defaultConfig.merge(BrnAppBarConfig(backgroundColor: backgroundColor));
+    _defaultConfig = _defaultConfig.merge(BrnAppBarConfig(backgroundColor: backgroundColor));
 
-    _defaultConfig = BrnThemeConfigurator.instance
-        .getConfig(configId: _defaultConfig.configId)
-        .appBarConfig
-        .merge(_defaultConfig);
+    _defaultConfig = BrnThemeConfigurator.instance.getConfig(configId: _defaultConfig.configId).appBarConfig.merge(_defaultConfig);
 
     Widget? flexibleSpace;
     if (this.flexibleSpace != null) {
       flexibleSpace = Container(
-        height: _defaultConfig.appBarHeight +
-            MediaQueryData.fromWindow(window).padding.top,
+        height: _defaultConfig.appBarHeight + MediaQueryData.fromWindow(window).padding.top,
         child: this.flexibleSpace,
       );
     }
@@ -294,7 +280,7 @@ class BrnAppBar extends PreferredSize {
       backgroundColor: _defaultConfig.backgroundColor,
       actions: _wrapActions(_defaultConfig),
       bottom: _buildBarBottom(_defaultConfig),
-      brightness: brightness ?? Brightness.light,
+      // brightness: brightness ?? Brightness.light,
       toolbarOpacity: toolbarOpacity,
       bottomOpacity: bottomOpacity,
       flexibleSpace: flexibleSpace,
@@ -302,7 +288,7 @@ class BrnAppBar extends PreferredSize {
       shape: shape,
       iconTheme: iconTheme,
       actionsIconTheme: actionsIconTheme,
-      textTheme: textTheme,
+      // textTheme: textTheme,
       primary: primary,
       excludeHeaderSemantics: excludeHeaderSemantics,
     );
@@ -314,9 +300,7 @@ class BrnAppBar extends PreferredSize {
       return leadingWidth!;
     }
     if (leading is BrnDoubleLeading) {
-      return themeData.leftAndRightPadding +
-          themeData.itemSpacing +
-          themeData.iconSize * 2;
+      return themeData.leftAndRightPadding + themeData.itemSpacing + themeData.iconSize * 2;
     }
 
     if (leading == null && !automaticallyImplyLeading) {
@@ -346,8 +330,7 @@ class BrnAppBar extends PreferredSize {
         if (i != n - 1) actionList.add(SizedBox(width: themeData.itemSpacing));
       }
     } else {
-      Widget realAction =
-          (actions is BrnTextAction) ? _warpRealAction(actions) : actions;
+      Widget realAction = (actions is BrnTextAction) ? _warpRealAction(actions) : actions;
       actionList.add(realAction);
     }
     return actionList..add(SizedBox(width: themeData.leftAndRightPadding));
@@ -416,21 +399,12 @@ class BrnBackLeading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BrnAppBarConfig _defaultThemeData = themeData ?? BrnAppBarConfig();
-    _defaultThemeData = BrnThemeConfigurator.instance
-        .getConfig(configId: _defaultThemeData.configId)
-        .appBarConfig
-        .merge(_defaultThemeData);
+    _defaultThemeData = BrnThemeConfigurator.instance.getConfig(configId: _defaultThemeData.configId).appBarConfig.merge(_defaultThemeData);
 
-    _defaultThemeData = BrnThemeConfigurator.instance
-        .getConfig(configId: _defaultThemeData.configId)
-        .appBarConfig
-        .merge(_defaultThemeData);
+    _defaultThemeData = BrnThemeConfigurator.instance.getConfig(configId: _defaultThemeData.configId).appBarConfig.merge(_defaultThemeData);
 
     return ConstrainedBox(
-      constraints: BoxConstraints.tightFor(
-          width: _defaultThemeData.iconSize +
-              _defaultThemeData.leftAndRightPadding,
-          height: _defaultThemeData.appBarHeight),
+      constraints: BoxConstraints.tightFor(width: _defaultThemeData.iconSize + _defaultThemeData.leftAndRightPadding, height: _defaultThemeData.appBarHeight),
       child: IconButton(
         alignment: Alignment.centerRight,
         icon: child ?? _defaultThemeData.leadIconBuilder(),
@@ -454,24 +428,16 @@ class BrnDoubleLeading extends StatelessWidget {
   final Widget second;
   final BrnAppBarConfig? themeData;
 
-  BrnDoubleLeading(
-      {Key? key, required this.first, required this.second, this.themeData})
-      : super(key: key);
+  BrnDoubleLeading({Key? key, required this.first, required this.second, this.themeData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     BrnAppBarConfig _defaultThemeData = themeData ?? BrnAppBarConfig();
-    _defaultThemeData = BrnThemeConfigurator.instance
-        .getConfig(configId: _defaultThemeData.configId)
-        .appBarConfig
-        .merge(_defaultThemeData);
+    _defaultThemeData = BrnThemeConfigurator.instance.getConfig(configId: _defaultThemeData.configId).appBarConfig.merge(_defaultThemeData);
 
     return Container(
       constraints: BoxConstraints.tightFor(
-          height: _defaultThemeData.appBarHeight,
-          width: _defaultThemeData.leftAndRightPadding +
-              _defaultThemeData.itemSpacing +
-              _defaultThemeData.iconSize * 2),
+          height: _defaultThemeData.appBarHeight, width: _defaultThemeData.leftAndRightPadding + _defaultThemeData.itemSpacing + _defaultThemeData.iconSize * 2),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -492,10 +458,7 @@ class BrnAppBarTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BrnAppBarConfig _defaultThemeData = themeData ?? BrnAppBarConfig();
-    _defaultThemeData = BrnThemeConfigurator.instance
-        .getConfig(configId: _defaultThemeData.configId)
-        .appBarConfig
-        .merge(this.themeData);
+    _defaultThemeData = BrnThemeConfigurator.instance.getConfig(configId: _defaultThemeData.configId).appBarConfig.merge(this.themeData);
 
     return ConstrainedBox(
       child: Text(
@@ -503,9 +466,7 @@ class BrnAppBarTitle extends StatelessWidget {
         style: _defaultThemeData.titleStyle.generateTextStyle(),
         overflow: TextOverflow.ellipsis,
       ),
-      constraints: BoxConstraints.loose(Size.fromWidth(
-          (_defaultThemeData.titleStyle.generateTextStyle().fontSize ?? 18) *
-              (_defaultThemeData.titleMaxLength + 1))),
+      constraints: BoxConstraints.loose(Size.fromWidth((_defaultThemeData.titleStyle.generateTextStyle().fontSize ?? 18) * (_defaultThemeData.titleMaxLength + 1))),
     );
   }
 }
@@ -529,15 +490,10 @@ class BrnIconAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BrnAppBarConfig _defaultThemeData = themeData ?? BrnAppBarConfig();
-    _defaultThemeData = BrnThemeConfigurator.instance
-        .getConfig(configId: _defaultThemeData.configId)
-        .appBarConfig
-        .merge(_defaultThemeData)
-        .merge(BrnAppBarConfig(iconSize: this.size));
+    _defaultThemeData =
+        BrnThemeConfigurator.instance.getConfig(configId: _defaultThemeData.configId).appBarConfig.merge(_defaultThemeData).merge(BrnAppBarConfig(iconSize: this.size));
     return ConstrainedBox(
-      constraints: BoxConstraints.tightFor(
-          width: _defaultThemeData.iconSize,
-          height: _defaultThemeData.iconSize),
+      constraints: BoxConstraints.tightFor(width: _defaultThemeData.iconSize, height: _defaultThemeData.iconSize),
       child: IconButton(
         icon: child,
         onPressed: iconPressed,
@@ -554,26 +510,19 @@ class BrnTextAction extends StatelessWidget {
   final VoidCallback? iconPressed;
   final BrnAppBarConfig? themeData;
 
-  BrnTextAction(this.text, {Key? key, this.iconPressed, this.themeData})
-      : super(key: key);
+  BrnTextAction(this.text, {Key? key, this.iconPressed, this.themeData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     BrnAppBarConfig _defaultThemeData = themeData ?? BrnAppBarConfig();
-    _defaultThemeData = BrnThemeConfigurator.instance
-        .getConfig(configId: _defaultThemeData.configId)
-        .appBarConfig
-        .merge(_defaultThemeData);
+    _defaultThemeData = BrnThemeConfigurator.instance.getConfig(configId: _defaultThemeData.configId).appBarConfig.merge(_defaultThemeData);
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       child: Container(
         height: _defaultThemeData.appBarHeight,
         alignment: Alignment.center,
-        child: Text(text,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: _defaultThemeData.actionsStyle.generateTextStyle()),
+        child: Text(text, maxLines: 1, overflow: TextOverflow.ellipsis, style: _defaultThemeData.actionsStyle.generateTextStyle()),
       ),
       onTap: iconPressed,
     );
@@ -582,8 +531,7 @@ class BrnTextAction extends StatelessWidget {
 
 /// AppBar底部分割线,将实例传入[BrnAppBar.bottom]属性即可
 class BrnBarBottomDivider extends PreferredSize {
-  BrnBarBottomDivider()
-      : super(child: Container(), preferredSize: const Size(0, 0));
+  BrnBarBottomDivider() : super(child: Container(), preferredSize: const Size(0, 0));
 
   @override
   Size get preferredSize => Size.fromHeight(0.5);
@@ -624,16 +572,12 @@ class _BrnSearchResultAppBar extends StatelessWidget {
       _defaultConfig = _defaultConfig.merge(BrnAppBarConfig.dark());
     }
 
-    _defaultConfig = _defaultConfig
-        .merge(BrnAppBarConfig(
+    _defaultConfig = _defaultConfig.merge(BrnAppBarConfig(
       backgroundColor: this.backgroundColor,
       showDefaultBottom: this.showDefaultBottom,
     ));
 
-    _defaultConfig = BrnThemeConfigurator.instance
-        .getConfig(configId: _defaultConfig.configId)
-        .appBarConfig
-        .merge(_defaultConfig);
+    _defaultConfig = BrnThemeConfigurator.instance.getConfig(configId: _defaultConfig.configId).appBarConfig.merge(_defaultConfig);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
