@@ -124,17 +124,17 @@ class GifImageState extends State<GifImage> {
 
   Future<void> fetchGif(ImageProvider provider) async {
     List<ImageInfo> infos = [];
-    if (provider is AssetImage) {
-      dynamic data;
-      AssetBundleImageKey key = await provider.obtainKey(ImageConfiguration());
-      data = await key.bundle.load(key.name);
-      ui.Codec codec = await usePaintingBinding()
-          .instantiateImageCodec(data.buffer.asUint8List());
-      for (int i = 0; i < codec.frameCount; i++) {
-        FrameInfo frameInfo = await codec.getNextFrame();
-        infos.add(ImageInfo(image: frameInfo.image));
-      }
-    }
+    // if (provider is AssetImage) {
+    //   dynamic data;
+    //   AssetBundleImageKey key = await provider.obtainKey(ImageConfiguration());
+    //   data = await key.bundle.load(key.name);
+    //   ui.Codec codec = await usePaintingBinding()
+    //       .instantiateImageCodec(data.buffer.asUint8List());
+    //   for (int i = 0; i < codec.frameCount; i++) {
+    //     FrameInfo frameInfo = await codec.getNextFrame();
+    //     infos.add(ImageInfo(image: frameInfo.image));
+    //   }
+    // }
     _images.value = infos;
   }
 }
